@@ -1,0 +1,27 @@
+.carousel-wrapper {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+.carousel-container {
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-inner {
+  display: flex;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carousel-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
