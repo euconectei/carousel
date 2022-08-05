@@ -18,7 +18,7 @@ export const Carousel = ({
   infinite = false,
   items,
   itemsToShow = 1,
-  mobile = false,
+  mobile = true,
   showControls = false,
   showIndicators = false,
 }: CarouselType) => {
