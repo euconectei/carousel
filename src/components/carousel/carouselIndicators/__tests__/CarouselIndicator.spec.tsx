@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import CarouselIndicators from "..";
 
@@ -41,5 +41,23 @@ describe("Testing CarouselIndicators", () => {
     expect(items).toHaveLength(itemsImage.length);
 
     expect(items[1]).toHaveClass("active");
+  });
+
+  it("should execute the function when the button is clicked", () => {
+    const clickHandler = jest.fn();
+
+    render(
+      <CarouselIndicators
+        currentIndicator={1}
+        items={itemsImage}
+        changeCallback={(item) => clickHandler(item)}
+      />
+    );
+
+    const buttons = screen.queryAllByRole("button");
+    fireEvent.click(buttons[0]);
+
+    expect(clickHandler).toBeCalledTimes(1);
+    expect(clickHandler).toBeCalledWith(0);
   });
 });

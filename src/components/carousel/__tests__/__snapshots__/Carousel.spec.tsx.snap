@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Carousel Component should create a carousel component 1`] = `
+<body>
+  <div>
+    <div
+      class="carousel"
+    >
+      <div
+        class="carousel-wrapper"
+      >
+        <div
+          class="carousel-container"
+        >
+          <div
+            class="carousel-inner"
+          >
+            <div
+              class="carousel-item"
+              style="min-width: 0px;"
+            >
+              <div
+                class="carousel-item-image"
+              >
+                <img
+                  src="/images/first-slide.jpg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Testing Carousel Component should create a carousel component 1`] = `
+<body>
+  <div>
+    <div
+      class="carousel"
+    >
+      <div
+        class="carousel-wrapper"
+      >
+        <div
+          class="carousel-container"
+        >
+          <div
+            class="carousel-inner"
+          >
+            <div
+              class="carousel-item"
+              style="min-width: 0px;"
+            >
+              <div
+                class="carousel-item-image"
+              >
+                <img
+                  src="/images/first-slide.jpg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -18,7 +18,7 @@ export const Carousel = ({
   infinite = false,
   items,
   itemsToShow = 1,
-  mobile = true,
+  mobile = false,
   showControls = false,
   showIndicators = false,
 }: CarouselType) => {
@@ -30,8 +30,8 @@ export const Carousel = ({
   let wCarouselItem: number = 0;
   const elemContainer = useRef<HTMLDivElement>(null);
   const elemInner = useRef<HTMLDivElement>(null);
-  const nodeInner = elemInner.current;
-  const nodeContainer = elemContainer.current;
+  const carouselInner = elemInner.current;
+  const carouselContainer = elemContainer.current;
   const [slides, setSlides] = useState<any>();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -55,8 +55,8 @@ export const Carousel = ({
   };
 
   const moveSlide = (option: any) => {
-    if (nodeInner) {
-      nodeInner.style.transition = "all ease 0.3s";
+    if (carouselInner) {
+      carouselInner.style.transition = "all ease 0.3s";
     }
     if (option === "prev") {
       if (currentIndex <= 0 && infinite) {
@@ -78,23 +78,23 @@ export const Carousel = ({
 
   const moveStartHandler = (event: React.MouseEvent) => {
     pressed = true;
-    if (nodeInner) {
-      nodeInner.style.transitionProperty = "none";
+    if (carouselInner) {
+      carouselInner.style.transitionProperty = "none";
       startTemp = event.nativeEvent.screenX;
-      startX = event.nativeEvent.screenX - nodeInner.offsetLeft;
+      startX = event.nativeEvent.screenX - carouselInner.offsetLeft;
     }
-    if (nodeContainer) {
-      nodeContainer.style.cursor = "grabbing";
+    if (carouselContainer) {
+      carouselContainer.style.cursor = "grabbing";
     }
   };
 
   const touchStartHandler = (event: React.TouchEvent) => {
     console.log("touchStartHandler");
     console.log(event.touches);
-    if (nodeInner) {
-      nodeInner.style.transitionProperty = "none";
+    if (carouselInner) {
+      carouselInner.style.transitionProperty = "none";
       startTemp = event.touches[0].screenX;
-      startX = event.touches[0].screenX - nodeInner.offsetLeft;
+      startX = event.touches[0].screenX - carouselInner.offsetLeft;
     }
   };
 
@@ -104,8 +104,8 @@ export const Carousel = ({
 
     x = event.nativeEvent.screenX;
 
-    if (nodeInner) {
-      nodeInner.style.left = `${x - startX}px`;
+    if (carouselInner) {
+      carouselInner.style.left = `${x - startX}px`;
     }
     checkBoundary();
   };
@@ -113,18 +113,18 @@ export const Carousel = ({
   const touchMoveHandler = (event: React.TouchEvent) => {
     x = event.touches[0].screenX;
 
-    if (nodeInner) {
-      nodeInner.style.left = `${x - startX}px`;
+    if (carouselInner) {
+      carouselInner.style.left = `${x - startX}px`;
     }
     checkBoundary();
   };
 
   const moveEndHandler = (event: React.MouseEvent) => {
-    if (nodeContainer) {
-      nodeContainer.style.cursor = "grab";
+    if (carouselContainer) {
+      carouselContainer.style.cursor = "grab";
     }
 
-    if (nodeInner) {
+    if (carouselInner) {
       endX = event.nativeEvent.screenX;
       if (endX > startTemp) {
         moveSlide("prev");
@@ -140,7 +140,7 @@ export const Carousel = ({
   const touchEndHandler = (event: React.TouchEvent) => {
     console.log("touchEndHandler");
     console.log(event);
-    if (nodeInner) {
+    if (carouselInner) {
       if (x > startTemp) {
         moveSlide("prev");
       }
@@ -151,16 +151,16 @@ export const Carousel = ({
   };
 
   const checkBoundary = () => {
-    if (nodeInner && nodeContainer) {
-      let outer = nodeContainer.getBoundingClientRect();
-      let inner = nodeInner.getBoundingClientRect();
+    if (carouselInner && carouselContainer) {
+      let outer = carouselContainer.getBoundingClientRect();
+      let inner = carouselInner.getBoundingClientRect();
 
-      if (parseInt(nodeInner.style.left) > 0) {
-        nodeInner.style.left = "0px";
+      if (parseInt(carouselInner.style.left) > 0) {
+        carouselInner.style.left = "0px";
       }
 
       if (inner.right < outer.right) {
-        nodeInner.style.left = `-${inner.width - outer.width}px`;
+        carouselInner.style.left = `-${inner.width - outer.width}px`;
       }
     }
   };
@@ -173,8 +173,8 @@ export const Carousel = ({
   }, [elemContainer.current?.offsetWidth, size.width]);
 
   useEffect(() => {
-    if (nodeInner) {
-      nodeInner.style.left = `-${currentIndex * 100}%`;
+    if (carouselInner) {
+      carouselInner.style.left = `-${currentIndex * 100}%`;
     }
   }, [currentIndex]);
 
@@ -182,8 +182,12 @@ export const Carousel = ({
     <div className='carousel'>
       <div className='carousel-wrapper'>
         {showControls && (
-          <div className='carousel-button carousel-button-prev'>
-            <button onClick={() => moveSlide("prev")}>{"<"}</button>
+          <div className='carousel-button carousel-button-wrapper-prev'>
+            <button
+              className='carousel-button-prev'
+              onClick={() => moveSlide("prev")}>
+              {"<"}
+            </button>
           </div>
         )}
         {mobile ? (
@@ -210,8 +214,12 @@ export const Carousel = ({
           </div>
         )}
         {showControls && (
-          <div className='carousel-button carousel-button-next'>
-            <button onClick={() => moveSlide("next")}>{">"}</button>
+          <div className='carousel-button carousel-button-wrapper-next'>
+            <button
+              className='carousel-button-next'
+              onClick={() => moveSlide("next")}>
+              {">"}
+            </button>
           </div>
         )}
       </div>
